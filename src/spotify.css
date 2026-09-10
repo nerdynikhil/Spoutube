@@ -219,16 +219,30 @@ html.spoutube-enabled ytmusic-chip-cloud-chip-renderer {
   border-radius: 8px !important;
   color: var(--sp-text) !important; font-weight: 600 !important; font-size: 13px !important;
   height: 32px !important; min-height: 0 !important; max-height: 32px !important;
-  display: inline-flex !important; align-items: center !important;
-  padding: 0 12px !important; margin: 0 8px 0 0 !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+  padding: 0 !important; margin: 0 8px 0 0 !important;
 }
-/* Kill the tall inner button/ripple that was creating the oval */
+/* Center the inner button/ripple and give it symmetric horizontal padding.
+   YTM left-aligns the text (leading icon slot), so we force center + equal pad. */
 html.spoutube-enabled ytmusic-chip-cloud-chip-renderer tp-yt-paper-chip,
 html.spoutube-enabled ytmusic-chip-cloud-chip-renderer .chip-container,
 html.spoutube-enabled ytmusic-chip-cloud-chip-renderer #chip-container {
   height: 32px !important; min-height: 0 !important; border-radius: 8px !important;
-  padding: 0 !important; display: inline-flex !important; align-items: center !important;
+  padding: 0 16px !important; margin: 0 !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+  width: 100% !important; box-sizing: border-box !important;
 }
+/* The label text itself → centered, no stray leading/trailing space */
+html.spoutube-enabled ytmusic-chip-cloud-chip-renderer #text,
+html.spoutube-enabled ytmusic-chip-cloud-chip-renderer .text,
+html.spoutube-enabled ytmusic-chip-cloud-chip-renderer yt-formatted-string {
+  text-align: center !important; padding: 0 !important; margin: 0 !important;
+  width: auto !important; line-height: 1 !important;
+}
+/* Hide any leading icon slot that pushes the text off-center */
+html.spoutube-enabled ytmusic-chip-cloud-chip-renderer yt-icon,
+html.spoutube-enabled ytmusic-chip-cloud-chip-renderer .left-icon,
+html.spoutube-enabled ytmusic-chip-cloud-chip-renderer #left-icon { display: none !important; }
 html.spoutube-enabled ytmusic-chip-cloud-chip-renderer[is-selected] { background: var(--sp-text) !important; color: var(--sp-black) !important; }
 
 /* Section titles */
