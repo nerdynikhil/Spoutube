@@ -56,9 +56,12 @@ html.spoutube-enabled ::-webkit-scrollbar-thumb:hover {
   background-clip: content-box;
 }
 
-/* Hide YouTube-specific background image behind home */
+/* Hide YouTube-specific background artwork/gradient bleeding behind content */
 html.spoutube-enabled #background,
 html.spoutube-enabled ytmusic-background-renderer,
+html.spoutube-enabled ytmusic-fullbleed-thumbnail-renderer,
+html.spoutube-enabled .background-gradient,
+html.spoutube-enabled #gradient,
 html.spoutube-enabled tp-yt-iron-image#blur { display: none !important; }
 
 /* =====================================================================
@@ -81,21 +84,30 @@ html.spoutube-enabled ytmusic-nav-bar .left-content {
 html.spoutube-enabled ytmusic-logo yt-icon,
 html.spoutube-enabled ytmusic-logo svg { color: var(--sp-text) !important; fill: var(--sp-text) !important; }
 
-/* Search box → Spotify search pill */
+/* Search box → Spotify search pill. The visible surface is the inner
+   .search-container, so style that (the host element stays transparent). */
 html.spoutube-enabled ytmusic-search-box {
+  background: transparent !important;
+  height: 48px !important;
+  width: 474px !important;
+}
+html.spoutube-enabled ytmusic-search-box .search-container {
   background: #242424 !important;
   border: 1px solid transparent !important;
   border-radius: 500px !important;
   height: 48px !important;
-  width: 474px !important;
-  transition: background 0.2s ease, border-color 0.2s ease !important;
+  padding: 0 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
-html.spoutube-enabled ytmusic-search-box:hover {
+html.spoutube-enabled ytmusic-search-box:hover .search-container {
   background: #2a2a2a !important;
 }
-html.spoutube-enabled ytmusic-search-box:focus-within {
+html.spoutube-enabled ytmusic-search-box:focus-within .search-container {
   background: #2a2a2a !important;
   border-color: #ffffff !important;
+  box-shadow: 0 0 0 1px #ffffff !important;
 }
 html.spoutube-enabled ytmusic-search-box input,
 html.spoutube-enabled ytmusic-search-box .search-box {
@@ -103,7 +115,12 @@ html.spoutube-enabled ytmusic-search-box .search-box {
   font-size: 14px !important;
   font-weight: 500 !important;
 }
-html.spoutube-enabled ytmusic-search-box tp-yt-paper-icon-button {
+html.spoutube-enabled ytmusic-search-box::placeholder,
+html.spoutube-enabled ytmusic-search-box input::placeholder {
+  color: var(--sp-subdued) !important;
+}
+html.spoutube-enabled ytmusic-search-box tp-yt-paper-icon-button,
+html.spoutube-enabled ytmusic-search-box .icon {
   color: var(--sp-text) !important;
 }
 
@@ -113,15 +130,28 @@ html.spoutube-enabled ytmusic-nav-bar .right-content yt-icon-button {
   color: var(--sp-subdued) !important;
 }
 
-/* Sign-in button → Spotify white pill */
-html.spoutube-enabled ytmusic-nav-bar .right-content ytmusic-nav-bar-signed-out-buttons a,
-html.spoutube-enabled ytmusic-nav-bar tp-yt-paper-button {
+/* Hide controls Spotify's top bar doesn't have (cast) */
+html.spoutube-enabled ytmusic-nav-bar ytmusic-cast-button {
+  display: none !important;
+}
+
+/* Sign-in link → Spotify white "Log in" pill */
+html.spoutube-enabled ytmusic-nav-bar .sign-in-link {
   background: var(--sp-text) !important;
   color: var(--sp-black) !important;
   border-radius: 500px !important;
   font-weight: 700 !important;
-  padding: 8px 16px !important;
+  font-size: 14px !important;
+  padding: 8px 20px !important;
+  height: auto !important;
+  min-height: 32px !important;
+  display: inline-flex !important;
+  align-items: center !important;
   text-transform: none !important;
+  transition: transform 0.1s ease !important;
+}
+html.spoutube-enabled ytmusic-nav-bar .sign-in-link:hover {
+  transform: scale(1.04) !important;
 }
 
 /* =====================================================================
@@ -177,19 +207,23 @@ html.spoutube-enabled .signin-promo {
 /* =====================================================================
    MAIN CONTENT  → Spotify rounded #121212 panel w/ gradient header
    ===================================================================== */
-html.spoutube-enabled #layout > ytmusic-browse-response,
 html.spoutube-enabled ytmusic-browse-response,
-html.spoutube-enabled #content.ytmusic-app-layout,
-html.spoutube-enabled ytmusic-tabbed-search-results-renderer {
+html.spoutube-enabled ytmusic-browse-response #browse-page,
+html.spoutube-enabled ytmusic-tabbed-search-results-renderer,
+html.spoutube-enabled #content-wrapper,
+html.spoutube-enabled ytmusic-section-list-renderer {
   background: var(--sp-base) !important;
 }
 
-/* The main scroll container: rounded panel floating on black */
-html.spoutube-enabled #content.ytmusic-app-layout,
-html.spoutube-enabled ytmusic-app-layout > #content {
-  margin: 8px 8px 0 0 !important;
+/* The main content area → rounded panel floating on black.
+   #browse-page spans full width behind the sidebar drawer, so we inset
+   the left edge to clear the 280px sidebar and leave black gutters. */
+html.spoutube-enabled ytmusic-browse-response#browse-page,
+html.spoutube-enabled ytmusic-app-layout #content > ytmusic-browse-response {
+  margin: 0 8px 0 288px !important;
   border-radius: var(--sp-radius) !important;
   overflow: hidden !important;
+  min-height: calc(100vh - 152px) !important;
 }
 
 /* Kill YT header gradient chips row → Spotify has category chips too, keep but restyle */

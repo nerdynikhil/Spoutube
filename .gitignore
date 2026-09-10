@@ -2,3 +2,5 @@
 *.log
 .DS_Store
 node_modules/
+pass*.png
+spotify-ref.png
