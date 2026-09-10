@@ -46,13 +46,18 @@ html.spoutube-enabled ::-webkit-scrollbar-thumb {
 }
 html.spoutube-enabled ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.5); background-clip: content-box; }
 
-/* Hide YouTube background artwork/gradient bleed */
+/* Hide YouTube background artwork/blur bleed. NOTE: do NOT hide
+   .background-gradient — it's a wrapper that contains the whole content feed;
+   we only strip its gradient background instead. */
 html.spoutube-enabled #background,
 html.spoutube-enabled ytmusic-background-renderer,
 html.spoutube-enabled ytmusic-fullbleed-thumbnail-renderer,
-html.spoutube-enabled .background-gradient,
-html.spoutube-enabled #gradient,
 html.spoutube-enabled tp-yt-iron-image#blur { display: none !important; }
+html.spoutube-enabled .background-gradient,
+html.spoutube-enabled #gradient {
+  background: transparent !important;
+  background-image: none !important;
+}
 
 /* =====================================================================
    TOP BAR
