@@ -18,9 +18,11 @@ html.spoutube-enabled {
   --sp-green: #1ed760;
   --sp-green-hover: #3be477;
   --sp-line: rgba(255, 255, 255, 0.1);
-  --sp-font: "Spotify Circular", "CircularSpTitle", "Circular Std",
+  /* Spotify uses "Circular" (proprietary). Avenir Next (macOS) is the closest
+     native match; Montserrat/system fonts fall back on other platforms. */
+  --sp-font: "CircularSpUI", "Circular", "Avenir Next", "Avenir",
              "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
-             Roboto, "Helvetica Neue", Arial, sans-serif;
+             "Helvetica Neue", Arial, sans-serif;
   --sp-radius: 8px;
   --sp-sidebar-w: 280px;
 }
@@ -80,9 +82,24 @@ html.spoutube-enabled ytmusic-nav-bar .left-content {
   min-width: var(--sp-sidebar-w) !important;
 }
 
-/* The YT Music logo — recolor to white */
+/* Replace the red "Music" logo with an injected Spotify wordmark.
+   Hide YTM's original logo children; show our .spoutube-wordmark. */
+html.spoutube-enabled ytmusic-logo > a,
 html.spoutube-enabled ytmusic-logo yt-icon,
-html.spoutube-enabled ytmusic-logo svg { color: var(--sp-text) !important; fill: var(--sp-text) !important; }
+html.spoutube-enabled ytmusic-logo ytmusic-logo-content,
+html.spoutube-enabled ytmusic-logo > :not(.spoutube-wordmark) {
+  display: none !important;
+}
+html.spoutube-enabled ytmusic-logo {
+  display: inline-flex !important;
+  align-items: center !important;
+}
+html.spoutube-enabled .spoutube-wordmark {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding-left: 8px !important;
+}
+html.spoutube-enabled .spoutube-wordmark svg { display: block !important; }
 
 /* Search box → Spotify search pill. The visible surface is the inner
    .search-container, so style that (the host element stays transparent). */
