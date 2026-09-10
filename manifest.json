@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Spoutube",
+  "version": "0.1.0",
+  "description": "Reskins YouTube Music to look pixel-perfect identical to Spotify's desktop web player.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Spoutube",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://music.youtube.com/*"],
+      "js": ["src/content.js"],
+      "css": ["src/spotify.css"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["fonts/*", "src/spotify.css"],
+      "matches": ["https://music.youtube.com/*"]
+    }
+  ],
+  "permissions": ["storage"],
+  "host_permissions": ["https://music.youtube.com/*"]
+}
