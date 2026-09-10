@@ -311,6 +311,29 @@ html.spoutube-enabled ytmusic-player-bar .next-button { color: var(--sp-subdued)
 html.spoutube-enabled ytmusic-player-bar .previous-button:hover,
 html.spoutube-enabled ytmusic-player-bar .next-button:hover { color: var(--sp-text) !important; }
 
+/* Shuffle + repeat (relocated into center row by content.js) → subdued,
+   turn Spotify-green when active. YTM changes their aria-label when on:
+   "Shuffle" → "Shuffle is on"; "Repeat off" → "Repeat all"/"Repeat one". */
+html.spoutube-enabled ytmusic-player-bar .spoutube-shuffle,
+html.spoutube-enabled ytmusic-player-bar .spoutube-repeat,
+html.spoutube-enabled ytmusic-player-bar .shuffle,
+html.spoutube-enabled ytmusic-player-bar .repeat { color: var(--sp-subdued) !important; }
+html.spoutube-enabled ytmusic-player-bar .spoutube-shuffle:hover,
+html.spoutube-enabled ytmusic-player-bar .spoutube-repeat:hover { color: var(--sp-text) !important; }
+/* Active (on) state → green, with the little Spotify dot */
+html.spoutube-enabled ytmusic-player-bar .shuffle[aria-label*="on" i],
+html.spoutube-enabled ytmusic-player-bar .shuffle[aria-pressed="true"],
+html.spoutube-enabled ytmusic-player-bar .repeat[aria-label*="all" i],
+html.spoutube-enabled ytmusic-player-bar .repeat[aria-label*="one" i],
+html.spoutube-enabled ytmusic-player-bar yt-icon-button.shuffle[aria-label*="on" i],
+html.spoutube-enabled ytmusic-player-bar yt-icon-button.repeat:not([aria-label*="off" i]) {
+  color: var(--sp-green) !important;
+}
+html.spoutube-enabled ytmusic-player-bar .shuffle[aria-label*="on" i] yt-icon,
+html.spoutube-enabled ytmusic-player-bar .repeat:not([aria-label*="off" i]) yt-icon {
+  color: var(--sp-green) !important; fill: var(--sp-green) !important;
+}
+
 /* Hide YT-only transport bits */
 html.spoutube-enabled ytmusic-player-bar .rewind-button,
 html.spoutube-enabled ytmusic-player-bar yt-icon-button[aria-label*="Rewind"],
