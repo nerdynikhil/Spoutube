@@ -149,9 +149,13 @@ html.spoutube-enabled #content-wrapper,
 html.spoutube-enabled ytmusic-section-list-renderer,
 html.spoutube-enabled ytmusic-player-page { background: var(--sp-base) !important; }
 
+/* Inset the main panel to clear the sidebar + leave black gutters, and round
+   the corners. IMPORTANT: never set overflow/height here — YTM's own scroll
+   container lives inside and clipping it makes the whole feed render blank. */
 html.spoutube-enabled ytmusic-browse-response#browse-page {
-  margin: 0 8px 0 296px !important; border-radius: var(--sp-radius) !important;
-  overflow: hidden !important; min-height: calc(100vh - 152px) !important;
+  margin-left: 296px !important;
+  margin-right: 8px !important;
+  border-radius: var(--sp-radius) !important;
 }
 
 /* Category chips */
