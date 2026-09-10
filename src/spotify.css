@@ -254,9 +254,27 @@ html.spoutube-enabled ytmusic-player-bar .byline { color: var(--sp-subdued) !imp
 
 /* Like/dislike/menu cluster in middle → push right of song info */
 html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons { order: 3 !important; margin-left: 12px !important; }
-/* Hide dislike + action menu (Spotify only has heart) */
+/* Hide dislike + action menu (Spotify only has the "added" check) */
 html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons button[aria-label*="Dislike"],
 html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons button[aria-label*="menu"] { display: none !important; }
+
+/* Replace the Like thumbs-up with Spotify's green "added" check circle.
+   Hide YTM's thumb glyph, draw the check as a background SVG on the button. */
+html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons button[aria-label*="like" i],
+html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons button[aria-label*="Like"] {
+  width: 24px !important; height: 24px !important; padding: 0 !important;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="12" fill="%231ed760"/><path d="M17 8.5l-6.2 6.2L7 11" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 20px 20px !important;
+}
+/* Hide the underlying thumb icon so only our check shows */
+html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons button[aria-label*="like" i] yt-icon,
+html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons button[aria-label*="like" i] svg,
+html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons button[aria-label*="Like"] yt-icon,
+html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons button[aria-label*="Like"] svg {
+  opacity: 0 !important;
+}
 
 /* Transport cluster → Spotify centered row: shuffle · prev · play · next · repeat.
    content.js moves the buttons into .spoutube-transport-row. The progress bar
