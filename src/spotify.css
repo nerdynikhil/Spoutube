@@ -96,8 +96,19 @@ html.spoutube-enabled ytmusic-logo yt-icon,
 html.spoutube-enabled ytmusic-logo ytmusic-logo-content,
 html.spoutube-enabled ytmusic-logo > :not(.spoutube-wordmark) { display: none !important; }
 html.spoutube-enabled ytmusic-logo { display: inline-flex !important; align-items: center !important; }
-html.spoutube-enabled .spoutube-wordmark { display: inline-flex !important; align-items: center !important; padding-left: 8px !important; }
-html.spoutube-enabled .spoutube-wordmark svg { display: block !important; }
+html.spoutube-enabled .spoutube-wordmark {
+  display: inline-flex !important; align-items: center !important;
+  gap: 8px !important; padding-left: 8px !important;
+}
+html.spoutube-enabled .spoutube-wordmark__icon { display: inline-flex !important; }
+html.spoutube-enabled .spoutube-wordmark__icon svg { display: block !important; }
+html.spoutube-enabled .spoutube-wordmark__text {
+  color: var(--sp-text) !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1 !important;
+}
 
 /* Search pill — real box is inner .search-box */
 html.spoutube-enabled ytmusic-search-box,
