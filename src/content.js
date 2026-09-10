@@ -68,23 +68,21 @@
     const bar = document.querySelector("ytmusic-player-bar");
     if (!bar) return;
     const left = bar.querySelector("#left-controls");
-    const progress = bar.querySelector("#progress-bar");
-    if (!left || !progress) return;
+    if (!left) return;
 
-    // Already structured and progress still parented by us → nothing to do.
-    if (left.getAttribute("data-spoutube-structured") === "1" && left.contains(progress)) return;
-
-    const timeInfo = bar.querySelector(".time-info");
+    // Already structured with shuffle+repeat present → nothing to do.
+    if (left.getAttribute("data-spoutube-structured") === "1" &&
+        left.querySelector(".spoutube-shuffle") && left.querySelector(".spoutube-repeat")) return;
 
     // 1) Row wrapper for the transport buttons.
     let transportRow = left.querySelector(":scope > .spoutube-transport-row");
     if (!transportRow) {
       transportRow = document.createElement("div");
       transportRow.className = "spoutube-transport-row";
-      // Move every current child (buttons etc.) into the row, except the raw
-      // time-info (kept hidden as our sync source) and the progress slider.
+      // Move the transport buttons into the row. Leave the progress slider and
+      // time-info where they are (YTM manages their position).
       Array.from(left.children).forEach((ch) => {
-        if (ch === progress) return;
+        if (ch.id === "progress-bar") return;
         if (ch.classList && ch.classList.contains("time-info")) return;
         if (ch.classList && ch.classList.contains("spoutube-transport-row")) return;
         transportRow.appendChild(ch);
@@ -107,37 +105,11 @@
       transportRow.appendChild(repeat);
     }
 
-    // 2) Progress row: [cur] [real slider] [total].
-    let progressRow = left.querySelector(":scope > .spoutube-progress-row");
-    if (!progressRow) {
-      progressRow = document.createElement("div");
-      progressRow.className = "spoutube-progress-row";
-      const cur = document.createElement("span");
-      cur.className = "spoutube-time-cur";
-      const total = document.createElement("span");
-      total.className = "spoutube-time-total";
-      progressRow.appendChild(cur);
-      progressRow.appendChild(progress); // move the real paper-slider
-      progressRow.appendChild(total);
-      left.appendChild(progressRow);
-
-      // Mirror YTM's "1:21 / 4:15" text into the two flanking spans.
-      const syncTimes = () => {
-        const parts = ((timeInfo && timeInfo.textContent) || "").split("/");
-        if (parts.length === 2) {
-          cur.textContent = parts[0].trim();
-          total.textContent = parts[1].trim();
-        }
-      };
-      syncTimes();
-      if (timeInfo) {
-        const to = new MutationObserver(syncTimes);
-        to.observe(timeInfo, { childList: true, characterData: true, subtree: true });
-      }
-    } else if (!progressRow.contains(progress)) {
-      // Slider got re-parented by YTM; pull it back between the time spans.
-      progressRow.insertBefore(progress, progressRow.querySelector(".spoutube-time-total"));
-    }
+    // NOTE: We intentionally do NOT relocate the #progress-bar. In YTM it's a
+    // sibling pinned to the top edge of the player bar (not a child of
+    // #left-controls), and moving it keeps losing to YTM's re-render — it snaps
+    // back as a stray thin line. Instead we leave it in place and style it via
+    // CSS as a full-width bar along the top of the player bar (still Spotify-ish).
 
     left.setAttribute("data-spoutube-structured", "1");
   }
