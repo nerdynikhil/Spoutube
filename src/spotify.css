@@ -220,16 +220,20 @@ html.spoutube-enabled ytmusic-chip-cloud-chip-renderer {
   color: var(--sp-text) !important; font-weight: 500 !important; font-size: 14px !important;
   height: 40px !important; min-height: 40px !important; max-height: 40px !important;
   display: inline-flex !important; align-items: center !important; justify-content: center !important;
-  padding: 0 !important; margin: 0 12px 0 0 !important;
+  padding: 0 20px !important;                     /* space before + after the text */
+  margin: 0 12px 0 0 !important;
+  box-sizing: border-box !important;
   transition: background .15s ease !important;
 }
 html.spoutube-enabled ytmusic-chip-cloud-chip-renderer:hover { background: rgba(255,255,255,0.12) !important; }
-/* Inner button/ripple → pill-shaped, generous symmetric padding, centered text */
+/* Any inner button/ripple/text wrapper → transparent, no extra box that
+   would shrink or offset the label. Padding lives on the chip itself above. */
 html.spoutube-enabled ytmusic-chip-cloud-chip-renderer tp-yt-paper-chip,
 html.spoutube-enabled ytmusic-chip-cloud-chip-renderer .chip-container,
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer #chip-container {
+html.spoutube-enabled ytmusic-chip-cloud-chip-renderer #chip-container,
+html.spoutube-enabled ytmusic-chip-cloud-chip-renderer button {
   height: 40px !important; min-height: 40px !important; border-radius: 500px !important;
-  padding: 0 20px !important; margin: 0 !important; background: transparent !important;
+  padding: 0 !important; margin: 0 !important; background: transparent !important;
   display: inline-flex !important; align-items: center !important; justify-content: center !important;
   box-sizing: border-box !important;
 }
