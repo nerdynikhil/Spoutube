@@ -102,13 +102,16 @@ html.spoutube-enabled .spoutube-wordmark {
 html.spoutube-enabled .spoutube-wordmark svg { display: block !important; }
 
 /* Search box → Spotify search pill. The visible surface is the inner
-   .search-container, so style that (the host element stays transparent). */
-html.spoutube-enabled ytmusic-search-box {
+   .search-box div (YTM gives it rgba(255,255,255,.15) + 8px radius). */
+html.spoutube-enabled ytmusic-search-box,
+html.spoutube-enabled ytmusic-search-box .search-container {
   background: transparent !important;
   height: 48px !important;
+}
+html.spoutube-enabled ytmusic-search-box {
   width: 474px !important;
 }
-html.spoutube-enabled ytmusic-search-box .search-container {
+html.spoutube-enabled ytmusic-search-box .search-box {
   background: #242424 !important;
   border: 1px solid transparent !important;
   border-radius: 500px !important;
@@ -118,10 +121,10 @@ html.spoutube-enabled ytmusic-search-box .search-container {
   align-items: center !important;
   transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
-html.spoutube-enabled ytmusic-search-box:hover .search-container {
+html.spoutube-enabled ytmusic-search-box:hover .search-box {
   background: #2a2a2a !important;
 }
-html.spoutube-enabled ytmusic-search-box:focus-within .search-container {
+html.spoutube-enabled ytmusic-search-box:focus-within .search-box {
   background: #2a2a2a !important;
   border-color: #ffffff !important;
   box-shadow: 0 0 0 1px #ffffff !important;
@@ -468,10 +471,73 @@ html.spoutube-enabled ytmusic-player-bar yt-icon-button[aria-label*="Playback sp
 }
 
 /* =====================================================================
-   QUEUE / NOW-PLAYING PAGE side panel
+   QUEUE / NOW-PLAYING PAGE side panel  → Spotify "Queue" panel
    ===================================================================== */
 html.spoutube-enabled #side-panel,
 html.spoutube-enabled ytmusic-player-queue {
   background: var(--sp-base) !important;
   border-radius: var(--sp-radius) !important;
+}
+
+/* --- Tab header (Up next / Lyrics / Comments / Related) ---
+   Spotify's queue panel has no tab bar, just a bold "Queue" heading. We keep
+   the two tabs with Spotify equivalents (Up next = Queue, Lyrics) and hide
+   Comments + Related which have no equivalent. */
+html.spoutube-enabled ytmusic-player-page tp-yt-paper-tab:nth-of-type(3),
+html.spoutube-enabled ytmusic-player-page tp-yt-paper-tab:nth-of-type(4) {
+  display: none !important;
+}
+
+/* Restyle the remaining tabs → Spotify tab typography */
+html.spoutube-enabled ytmusic-player-page tp-yt-paper-tabs {
+  background: transparent !important;
+  border-bottom: none !important;
+  padding: 4px 16px !important;
+}
+html.spoutube-enabled ytmusic-player-page tp-yt-paper-tab {
+  color: var(--sp-subdued) !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  letter-spacing: -0.02em !important;
+  text-transform: none !important;
+  margin-right: 20px !important;
+}
+html.spoutube-enabled ytmusic-player-page tp-yt-paper-tab[aria-selected="true"],
+html.spoutube-enabled ytmusic-player-page tp-yt-paper-tab.iron-selected {
+  color: var(--sp-text) !important;
+}
+/* YTM's sliding red ink-bar under the active tab → hide (Spotify has none) */
+html.spoutube-enabled ytmusic-player-page tp-yt-paper-tabs #selectionBar,
+html.spoutube-enabled ytmusic-player-page paper-tabs #selectionBar {
+  display: none !important;
+}
+
+/* "Playing from" label + queue rows → Spotify colors */
+html.spoutube-enabled ytmusic-player-page .subtitle,
+html.spoutube-enabled ytmusic-player-queue .subtitle {
+  color: var(--sp-subdued) !important;
+}
+
+/* Queue row hover → Spotify elevated highlight */
+html.spoutube-enabled ytmusic-player-queue ytmusic-player-queue-item:hover,
+html.spoutube-enabled ytmusic-player-queue ytmusic-responsive-list-item-renderer:hover {
+  background: rgba(255,255,255,0.1) !important;
+  border-radius: 4px !important;
+}
+
+/* "Save" pill in the queue header → Spotify outlined button */
+html.spoutube-enabled ytmusic-player-page tp-yt-paper-button[aria-label*="Save"],
+html.spoutube-enabled ytmusic-player-page .save-button {
+  background: transparent !important;
+  border: 1px solid var(--sp-subdued) !important;
+  border-radius: 500px !important;
+  color: var(--sp-text) !important;
+  font-weight: 700 !important;
+}
+
+/* Autoplay toggle row has no Spotify equivalent → hide it */
+html.spoutube-enabled ytmusic-player-page ytmusic-toggle-button-renderer,
+html.spoutube-enabled ytmusic-player-page #autoplay,
+html.spoutube-enabled ytmusic-player-page .autoplay {
+  display: none !important;
 }
