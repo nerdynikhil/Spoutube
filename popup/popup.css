@@ -1,0 +1,83 @@
+:root {
+  --bg: #121212;
+  --bg-elev: #181818;
+  --text: #ffffff;
+  --text-sub: #b3b3b3;
+  --green: #1ed760;
+  --line: #2a2a2a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 300px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  padding: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.brand__logo { display: flex; }
+
+.brand__text h1 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.brand__text p {
+  font-size: 11px;
+  color: var(--text-sub);
+  margin-top: 2px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-elev);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.row__label { display: flex; flex-direction: column; gap: 2px; }
+.row__title { font-size: 14px; font-weight: 600; }
+.row__sub { font-size: 12px; color: var(--text-sub); }
+
+/* Toggle switch — Spotify green */
+.switch { position: relative; display: inline-flex; cursor: pointer; }
+.switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.switch__track {
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: #4d4d4d;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+.switch__thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+.switch input:checked + .switch__track { background: var(--green); }
+.switch input:checked + .switch__track .switch__thumb { transform: translateX(20px); }
+
+.foot {
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--text-sub);
+  text-align: center;
+}
