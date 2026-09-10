@@ -429,3 +429,95 @@ html.spoutube-enabled ytmusic-player-page .autoplay { display: none !important; 
 /* Song/Video toggle on watch page → subdued Spotify segmented look */
 html.spoutube-enabled ytmusic-player-page #tabsContent tp-yt-paper-tab,
 html.spoutube-enabled .song-video-toggle { color: var(--sp-subdued) !important; }
+
+/* =====================================================================
+   PLAYLIST / ALBUM DETAIL PAGE  → Spotify header banner + track table
+   YTM uses ytmusic-two-column-browse-results-renderer: a sticky left
+   column (art + meta) and a scrolling right column (track list). We keep
+   that structure but restyle it to read as Spotify.
+   ===================================================================== */
+
+/* Header meta column */
+html.spoutube-enabled ytmusic-detail-header-renderer,
+html.spoutube-enabled ytmusic-responsive-header-renderer {
+  background: transparent !important;
+}
+/* Big bold playlist/album title (Spotify's oversized display type) */
+html.spoutube-enabled ytmusic-detail-header-renderer .title,
+html.spoutube-enabled ytmusic-responsive-header-renderer .title,
+html.spoutube-enabled ytmusic-detail-header-renderer yt-formatted-string.title {
+  color: var(--sp-text) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1.05 !important;
+}
+/* Subtitle / description / stats → subdued */
+html.spoutube-enabled ytmusic-detail-header-renderer .subtitle,
+html.spoutube-enabled ytmusic-detail-header-renderer .second-subtitle,
+html.spoutube-enabled ytmusic-responsive-header-renderer .subtitle,
+html.spoutube-enabled ytmusic-detail-header-renderer .description {
+  color: var(--sp-subdued) !important;
+  font-weight: 400 !important;
+}
+/* "Playlist"/"Album" eyebrow label above the title */
+html.spoutube-enabled ytmusic-detail-header-renderer .strapline-text,
+html.spoutube-enabled ytmusic-responsive-header-renderer .strapline-text {
+  color: var(--sp-text) !important;
+  font-weight: 600 !important; font-size: 12px !important;
+  text-transform: none !important;
+}
+/* Album art → rounded corners + Spotify drop shadow */
+html.spoutube-enabled ytmusic-detail-header-renderer .thumbnail img,
+html.spoutube-enabled ytmusic-responsive-header-renderer .thumbnail img,
+html.spoutube-enabled ytmusic-detail-header-renderer yt-img-shadow img {
+  border-radius: 6px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
+}
+
+/* Primary action row: make the main Play button Spotify green */
+html.spoutube-enabled ytmusic-detail-header-renderer ytmusic-play-button-renderer,
+html.spoutube-enabled ytmusic-responsive-header-renderer ytmusic-play-button-renderer,
+html.spoutube-enabled .action-buttons ytmusic-play-button-renderer {
+  background: var(--sp-green) !important;
+  border-radius: 50% !important;
+  width: 56px !important; height: 56px !important;
+  color: var(--sp-black) !important;
+  box-shadow: 0 8px 8px rgba(0,0,0,0.3) !important;
+  transition: transform .1s ease, background .1s ease !important;
+}
+html.spoutube-enabled ytmusic-detail-header-renderer ytmusic-play-button-renderer:hover,
+html.spoutube-enabled ytmusic-responsive-header-renderer ytmusic-play-button-renderer:hover {
+  transform: scale(1.04) !important; background: var(--sp-green-hover) !important;
+}
+html.spoutube-enabled ytmusic-detail-header-renderer ytmusic-play-button-renderer yt-icon,
+html.spoutube-enabled ytmusic-detail-header-renderer ytmusic-play-button-renderer svg {
+  color: var(--sp-black) !important; fill: var(--sp-black) !important;
+}
+/* Secondary action icons (download/save/share/menu) → subdued, no bg */
+html.spoutube-enabled ytmusic-detail-header-renderer tp-yt-paper-icon-button,
+html.spoutube-enabled ytmusic-detail-header-renderer yt-button-shape button {
+  color: var(--sp-subdued) !important; background: transparent !important;
+}
+html.spoutube-enabled ytmusic-detail-header-renderer tp-yt-paper-icon-button:hover {
+  color: var(--sp-text) !important;
+}
+
+/* Track list rows → Spotify table rows */
+html.spoutube-enabled ytmusic-responsive-list-item-renderer {
+  border-radius: 4px !important;
+  padding: 4px 8px !important;
+}
+html.spoutube-enabled ytmusic-responsive-list-item-renderer:hover {
+  background: rgba(255,255,255,0.08) !important;
+}
+html.spoutube-enabled ytmusic-responsive-list-item-renderer .title { color: var(--sp-text) !important; font-weight: 500 !important; }
+html.spoutube-enabled ytmusic-responsive-list-item-renderer.selected .title,
+html.spoutube-enabled ytmusic-responsive-list-item-renderer[selected] .title { color: var(--sp-green) !important; }
+html.spoutube-enabled ytmusic-responsive-list-item-renderer .secondary-flex-columns yt-formatted-string,
+html.spoutube-enabled ytmusic-responsive-list-item-renderer .subtitle { color: var(--sp-subdued) !important; }
+/* Duration + index column → subdued tabular */
+html.spoutube-enabled ytmusic-responsive-list-item-renderer .index,
+html.spoutube-enabled ytmusic-responsive-list-item-renderer .fixed-column,
+html.spoutube-enabled ytmusic-responsive-list-item-renderer .duration {
+  color: var(--sp-subdued) !important; font-variant-numeric: tabular-nums !important;
+}
