@@ -92,6 +92,21 @@
       left.appendChild(transportRow);
     }
 
+    // 1b) Spotify puts shuffle FIRST and repeat LAST in the center cluster.
+    // YTM keeps them in #right-controls, so relocate the real buttons here
+    // (they keep working) and tag them for green-active styling.
+    const bar2 = bar;
+    const shuffle = bar2.querySelector("#right-controls .shuffle, ytmusic-player-bar .shuffle");
+    const repeat = bar2.querySelector("#right-controls .repeat, ytmusic-player-bar .repeat");
+    if (shuffle && shuffle.parentElement !== transportRow) {
+      shuffle.classList.add("spoutube-shuffle");
+      transportRow.insertBefore(shuffle, transportRow.firstChild);
+    }
+    if (repeat && repeat.parentElement !== transportRow) {
+      repeat.classList.add("spoutube-repeat");
+      transportRow.appendChild(repeat);
+    }
+
     // 2) Progress row: [cur] [real slider] [total].
     let progressRow = left.querySelector(":scope > .spoutube-progress-row");
     if (!progressRow) {
