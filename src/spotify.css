@@ -432,54 +432,15 @@ html.spoutube-enabled .song-video-toggle { color: var(--sp-subdued) !important; 
 
 /* =====================================================================
    PLAYLIST / ALBUM DETAIL PAGE  → Spotify header banner + track table
-   YTM's layout = ytmusic-two-column-browse-results-renderer: a narrow
-   sticky LEFT column (art + meta stacked) and a scrolling RIGHT column
-   (tracks). Spotify is instead a full-width HORIZONTAL banner (art beside
-   a giant title) with the track table full-width below. We restructure the
-   two columns to stack vertically + lay the header out horizontally.
+   YTM uses ytmusic-two-column-browse-results-renderer: a sticky left
+   column (art + meta) and a scrolling right column (track list). We keep
+   that structure but restyle it to read as Spotify.
    ===================================================================== */
 
-/* 1) Break the two-column grid → stack full width */
-html.spoutube-enabled ytmusic-two-column-browse-results-renderer,
-html.spoutube-enabled ytmusic-two-column-browse-results-renderer .content.ytmusic-two-column-browse-results-renderer {
-  display: flex !important;
-  flex-direction: column !important;
-  max-width: none !important;
-}
-html.spoutube-enabled ytmusic-two-column-browse-results-renderer .left-column,
-html.spoutube-enabled ytmusic-two-column-browse-results-renderer .right-column {
-  width: 100% !important;
-  max-width: none !important;
-  position: static !important;   /* kill sticky left column */
-  padding: 0 32px !important;
-}
-/* Header column sits on top; a touch of bottom spacing before the tracks */
-html.spoutube-enabled ytmusic-two-column-browse-results-renderer .left-column { margin-bottom: 8px !important; }
-
-/* 2) Header itself → horizontal: [art] [eyebrow / title / meta] */
+/* Header meta column */
 html.spoutube-enabled ytmusic-detail-header-renderer,
 html.spoutube-enabled ytmusic-responsive-header-renderer {
   background: transparent !important;
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: flex-end !important;
-  gap: 24px !important;
-  padding: 24px 0 !important;
-}
-/* Text block to the right of the art, vertically centered on the art */
-html.spoutube-enabled ytmusic-detail-header-renderer .metadata,
-html.spoutube-enabled ytmusic-responsive-header-renderer .metadata,
-html.spoutube-enabled ytmusic-detail-header-renderer .content-container {
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: flex-end !important;
-  gap: 12px !important;
-}
-/* Fix the art to a Spotify-ish 232px square */
-html.spoutube-enabled ytmusic-detail-header-renderer .thumbnail,
-html.spoutube-enabled ytmusic-responsive-header-renderer .thumbnail,
-html.spoutube-enabled ytmusic-detail-header-renderer #thumbnail {
-  width: 232px !important; height: 232px !important; flex: 0 0 232px !important;
 }
 /* Big bold playlist/album title (Spotify's oversized display type) */
 html.spoutube-enabled ytmusic-detail-header-renderer .title,
@@ -487,10 +448,8 @@ html.spoutube-enabled ytmusic-responsive-header-renderer .title,
 html.spoutube-enabled ytmusic-detail-header-renderer yt-formatted-string.title {
   color: var(--sp-text) !important;
   font-weight: 800 !important;
-  font-size: clamp(32px, 5vw, 72px) !important;
   letter-spacing: -0.04em !important;
   line-height: 1.05 !important;
-  margin: 4px 0 !important;
 }
 /* Subtitle / description / stats → subdued */
 html.spoutube-enabled ytmusic-detail-header-renderer .subtitle,
