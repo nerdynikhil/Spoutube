@@ -3,6 +3,26 @@
    Everything scoped under html.spoutube-enabled so the popup toggles it.
    ===================================================================== */
 
+/* ---- Spotify Circular font (drop licensed .woff2 into fonts/) ----
+   url() in a content-script CSS resolves against the extension root, and
+   fonts/* is exposed via web_accessible_resources in manifest.json.
+   If the files are absent the stack below falls back gracefully. */
+@font-face {
+  font-family: "CircularSpUI";
+  src: url("../fonts/CircularSpUI-Book.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "CircularSpUI";
+  src: url("../fonts/CircularSpUI-Medium.woff2") format("woff2");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "CircularSpUI";
+  src: url("../fonts/CircularSpUI-Bold.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
 /* ---- Spotify design tokens ---- */
 html.spoutube-enabled {
   --sp-black: #000000;
