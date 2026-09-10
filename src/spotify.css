@@ -195,60 +195,9 @@ html.spoutube-enabled ytmusic-browse-response#browse-page {
   border-radius: var(--sp-radius) !important;
 }
 
-/* Category chip row → Spotify filter pills. YTM's chip cloud has a fixed
-   height that clips tall chips into half-circles, so we relax the container
-   and force compact pill dimensions. */
-html.spoutube-enabled ytmusic-chip-cloud-renderer,
-html.spoutube-enabled ytmusic-chip-cloud-renderer #chips-content,
-html.spoutube-enabled ytmusic-chip-cloud-renderer #container {
-  height: auto !important; min-height: 0 !important; max-height: none !important;
-  overflow: visible !important;
-}
-/* Comfortable Spotify spacing: room above the row + a gap before the content */
-html.spoutube-enabled ytmusic-chip-cloud-renderer {
-  padding: 20px 0 8px 0 !important;
-  margin-bottom: 8px !important;
-}
-html.spoutube-enabled ytmusic-chip-cloud-renderer #chips-content,
-html.spoutube-enabled ytmusic-chip-cloud-renderer #container {
-  padding: 4px 0 !important;
-  gap: 8px !important;
-}
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer {
-  background: rgba(255,255,255,0.07) !important;
-  border-radius: 500px !important;               /* fully rounded pill */
-  color: var(--sp-text) !important; font-weight: 500 !important; font-size: 14px !important;
-  height: 40px !important; min-height: 40px !important; max-height: 40px !important;
-  display: inline-flex !important; align-items: center !important; justify-content: center !important;
-  padding: 0 20px !important;                     /* space before + after the text */
-  margin: 0 12px 0 0 !important;
-  box-sizing: border-box !important;
-  transition: background .15s ease !important;
-}
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer:hover { background: rgba(255,255,255,0.12) !important; }
-/* Any inner button/ripple/text wrapper → transparent, no extra box that
-   would shrink or offset the label. Padding lives on the chip itself above. */
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer tp-yt-paper-chip,
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer .chip-container,
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer #chip-container,
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer button {
-  height: 40px !important; min-height: 40px !important; border-radius: 500px !important;
-  padding: 0 !important; margin: 0 !important; background: transparent !important;
-  display: inline-flex !important; align-items: center !important; justify-content: center !important;
-  box-sizing: border-box !important;
-}
-/* Label text → centered, single line, no stray padding */
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer #text,
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer .text,
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer yt-formatted-string {
-  text-align: center !important; padding: 0 !important; margin: 0 !important;
-  white-space: nowrap !important; line-height: 1 !important;
-}
-/* Hide leading icon slot that offsets the text */
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer yt-icon,
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer .left-icon,
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer #left-icon { display: none !important; }
-html.spoutube-enabled ytmusic-chip-cloud-chip-renderer[is-selected] { background: var(--sp-text) !important; color: var(--sp-black) !important; }
+/* Category chip row — hidden entirely. Spotify's home has no genre-filter
+   pill bar, so we remove YTM's chip cloud completely. */
+html.spoutube-enabled ytmusic-chip-cloud-renderer { display: none !important; }
 
 /* Section titles */
 html.spoutube-enabled ytmusic-carousel-shelf-renderer .title,
