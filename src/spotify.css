@@ -350,23 +350,54 @@ html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons {
 html.spoutube-enabled ytmusic-player-bar #left-controls {
   gap: 8px !important;
 }
-/* Play/pause → white circle w/ black glyph */
+/* Play/pause → solid white circle w/ black glyph (Spotify signature).
+   The host is the white disc; the inner yt-icon-button stays transparent so
+   only our circle shows, and the glyph is centered + forced black. */
 html.spoutube-enabled ytmusic-player-bar #play-pause-button {
   background: var(--sp-text) !important;
   border-radius: 50% !important;
-  width: 32px !important;
-  height: 32px !important;
-  padding: 6px !important;
+  width: 38px !important;
+  height: 38px !important;
+  padding: 0 !important;
+  margin: 0 6px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   color: var(--sp-black) !important;
+  overflow: hidden !important;
   transition: transform 0.1s ease !important;
 }
 html.spoutube-enabled ytmusic-player-bar #play-pause-button:hover {
   transform: scale(1.06) !important;
 }
+/* Inner button transparent, no ripple/fill */
+html.spoutube-enabled ytmusic-player-bar #play-pause-button #button,
+html.spoutube-enabled ytmusic-player-bar #play-pause-button .yt-interaction,
+html.spoutube-enabled ytmusic-player-bar #play-pause-button .fill,
+html.spoutube-enabled ytmusic-player-bar #play-pause-button .stroke {
+  background: transparent !important;
+  color: var(--sp-black) !important;
+}
+/* The glyph itself — small, centered, black */
 html.spoutube-enabled ytmusic-player-bar #play-pause-button yt-icon,
-html.spoutube-enabled ytmusic-player-bar #play-pause-button svg {
+html.spoutube-enabled ytmusic-player-bar #play-pause-button #icon {
+  width: 16px !important;
+  height: 16px !important;
+  color: var(--sp-black) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+html.spoutube-enabled ytmusic-player-bar #play-pause-button svg,
+html.spoutube-enabled ytmusic-player-bar #play-pause-button path {
   color: var(--sp-black) !important;
   fill: var(--sp-black) !important;
+  stroke: none !important;
+}
+/* Kill YTM's circular loading spinner overlay on the play button */
+html.spoutube-enabled ytmusic-player-bar #play-pause-button tp-yt-paper-spinner,
+html.spoutube-enabled ytmusic-player-bar .spinner {
+  display: none !important;
 }
 /* Prev/next → subdued white, hover full white */
 html.spoutube-enabled ytmusic-player-bar .previous-button,
@@ -384,13 +415,28 @@ html.spoutube-enabled ytmusic-player-bar yt-icon-button[aria-label*="Fast forwar
   display: none !important;
 }
 
-/* --- Progress bar → thin Spotify slider --- */
+/* --- Progress bar → thin Spotify slider ---
+   Spotify: 4px track, white fill, knob hidden until hover (then green fill). */
 html.spoutube-enabled ytmusic-player-bar #progress-bar {
   --paper-slider-active-color: var(--sp-text) !important;
   --paper-slider-secondary-color: rgba(255,255,255,0.3) !important;
   --paper-slider-knob-color: var(--sp-text) !important;
   --paper-slider-container-color: rgba(255,255,255,0.3) !important;
   --paper-slider-height: 4px !important;
+}
+/* Hide the scrubber knob by default (kills the stray dot on the far left) */
+html.spoutube-enabled ytmusic-player-bar #progress-bar #sliderKnob,
+html.spoutube-enabled ytmusic-player-bar #progress-bar .slider-knob,
+html.spoutube-enabled ytmusic-player-bar #progress-bar #sliderKnobInner {
+  opacity: 0 !important;
+  transform: scale(0) !important;
+  transition: opacity 0.15s ease, transform 0.15s ease !important;
+}
+html.spoutube-enabled ytmusic-player-bar #progress-bar:hover #sliderKnob,
+html.spoutube-enabled ytmusic-player-bar #progress-bar:hover .slider-knob,
+html.spoutube-enabled ytmusic-player-bar #progress-bar:hover #sliderKnobInner {
+  opacity: 1 !important;
+  transform: scale(1) !important;
 }
 html.spoutube-enabled ytmusic-player-bar #progress-bar:hover {
   --paper-slider-active-color: var(--sp-green) !important;
