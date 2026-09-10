@@ -220,13 +220,30 @@ html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons { order: 3 !im
 html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons button[aria-label*="Dislike"],
 html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons button[aria-label*="menu"] { display: none !important; }
 
-/* Transport cluster */
+/* Transport cluster → Spotify: buttons row on top, progress row beneath.
+   content.js wraps buttons in .spoutube-transport-row and builds
+   .spoutube-progress-row = [cur][slider][total]. */
 html.spoutube-enabled ytmusic-player-bar #left-controls {
-  display: flex !important; align-items: center !important; justify-content: center !important;
-  flex-direction: row !important; gap: 8px !important;
+  display: flex !important; flex-direction: column !important;
+  align-items: center !important; justify-content: center !important;
+  gap: 4px !important; width: 100% !important; max-width: 722px !important; margin: 0 auto !important;
 }
-/* Time info → smaller, subdued (sits inline near controls) */
-html.spoutube-enabled ytmusic-player-bar .time-info { color: var(--sp-subdued) !important; font-size: 11px !important; font-variant-numeric: tabular-nums !important; }
+html.spoutube-enabled ytmusic-player-bar .spoutube-transport-row {
+  display: flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important;
+}
+html.spoutube-enabled ytmusic-player-bar .spoutube-progress-row {
+  display: flex !important; align-items: center !important; gap: 8px !important; width: 100% !important;
+}
+html.spoutube-enabled ytmusic-player-bar .spoutube-progress-row #progress-bar { flex: 1 1 auto !important; width: auto !important; }
+html.spoutube-enabled ytmusic-player-bar .spoutube-time-cur,
+html.spoutube-enabled ytmusic-player-bar .spoutube-time-total {
+  color: var(--sp-subdued) !important; font-size: 11px !important;
+  font-variant-numeric: tabular-nums !important; min-width: 40px !important; flex: 0 0 auto !important;
+}
+html.spoutube-enabled ytmusic-player-bar .spoutube-time-cur { text-align: right !important; }
+html.spoutube-enabled ytmusic-player-bar .spoutube-time-total { text-align: left !important; }
+/* Hide YTM's raw inline "1:21 / 4:15" text (we mirror it into the two spans) */
+html.spoutube-enabled ytmusic-player-bar .time-info { display: none !important; }
 
 /* Play/pause → solid white circle w/ black glyph */
 html.spoutube-enabled ytmusic-player-bar #play-pause-button {
