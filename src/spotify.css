@@ -164,13 +164,29 @@ html.spoutube-enabled ytmusic-browse-response#browse-page {
   border-radius: var(--sp-radius) !important;
 }
 
-/* Category chip row — give it room so chips aren't clipped at the top */
+/* Category chip row → Spotify filter pills. YTM's chip cloud has a fixed
+   height that clips tall chips into half-circles, so we relax the container
+   and force compact pill dimensions. */
 html.spoutube-enabled ytmusic-chip-cloud-renderer,
-html.spoutube-enabled ytmusic-chip-cloud-renderer #chips-content { padding-top: 8px !important; overflow: visible !important; }
+html.spoutube-enabled ytmusic-chip-cloud-renderer #chips-content,
+html.spoutube-enabled ytmusic-chip-cloud-renderer #container {
+  height: auto !important; min-height: 0 !important; max-height: none !important;
+  overflow: visible !important; padding: 12px 0 !important;
+}
 html.spoutube-enabled ytmusic-chip-cloud-chip-renderer {
-  background: rgba(255,255,255,0.07) !important; border-radius: 500px !important;
-  color: var(--sp-text) !important; font-weight: 600 !important;
-  height: 32px !important; min-height: 32px !important;
+  background: rgba(255,255,255,0.07) !important;
+  border-radius: 8px !important;
+  color: var(--sp-text) !important; font-weight: 600 !important; font-size: 13px !important;
+  height: 32px !important; min-height: 0 !important; max-height: 32px !important;
+  display: inline-flex !important; align-items: center !important;
+  padding: 0 12px !important; margin: 0 8px 0 0 !important;
+}
+/* Kill the tall inner button/ripple that was creating the oval */
+html.spoutube-enabled ytmusic-chip-cloud-chip-renderer tp-yt-paper-chip,
+html.spoutube-enabled ytmusic-chip-cloud-chip-renderer .chip-container,
+html.spoutube-enabled ytmusic-chip-cloud-chip-renderer #chip-container {
+  height: 32px !important; min-height: 0 !important; border-radius: 8px !important;
+  padding: 0 !important; display: inline-flex !important; align-items: center !important;
 }
 html.spoutube-enabled ytmusic-chip-cloud-chip-renderer[is-selected] { background: var(--sp-text) !important; color: var(--sp-black) !important; }
 
