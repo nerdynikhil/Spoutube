@@ -1,0 +1,380 @@
+/* =====================================================================
+   Spoutube — reskins YouTube Music as Spotify's desktop web player.
+   All rules scoped under html.spoutube-enabled so the popup can toggle
+   the whole thing on/off live.
+   ===================================================================== */
+
+/* ---- Spotify design tokens ---- */
+html.spoutube-enabled {
+  --sp-black: #000000;
+  --sp-base: #121212;          /* main panel bg */
+  --sp-elev-base: #181818;     /* cards, player bar */
+  --sp-elev-hi: #282828;       /* card hover */
+  --sp-elev-highlight: #1a1a1a;
+  --sp-sidebar: #121212;
+  --sp-text: #ffffff;
+  --sp-subdued: #b3b3b3;
+  --sp-subdued-2: #a7a7a7;
+  --sp-green: #1ed760;
+  --sp-green-hover: #3be477;
+  --sp-line: rgba(255, 255, 255, 0.1);
+  --sp-font: "Spotify Circular", "CircularSpTitle", "Circular Std",
+             "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
+             Roboto, "Helvetica Neue", Arial, sans-serif;
+  --sp-radius: 8px;
+  --sp-sidebar-w: 280px;
+}
+
+/* ---- Global reset of YTMusic chrome ---- */
+html.spoutube-enabled,
+html.spoutube-enabled body,
+html.spoutube-enabled ytmusic-app,
+html.spoutube-enabled ytmusic-app-layout {
+  background: var(--sp-black) !important;
+  color: var(--sp-text) !important;
+  font-family: var(--sp-font) !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+html.spoutube-enabled * {
+  font-family: var(--sp-font) !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+/* Scrollbars → Spotify style */
+html.spoutube-enabled ::-webkit-scrollbar { width: 12px; height: 12px; }
+html.spoutube-enabled ::-webkit-scrollbar-track { background: transparent; }
+html.spoutube-enabled ::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+html.spoutube-enabled ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.5);
+  background-clip: content-box;
+}
+
+/* Hide YouTube-specific background image behind home */
+html.spoutube-enabled #background,
+html.spoutube-enabled ytmusic-background-renderer,
+html.spoutube-enabled tp-yt-iron-image#blur { display: none !important; }
+
+/* =====================================================================
+   TOP BAR  (ytmusic-nav-bar → Spotify global top bar)
+   ===================================================================== */
+html.spoutube-enabled ytmusic-nav-bar {
+  background: var(--sp-black) !important;
+  height: 64px !important;
+  padding: 0 16px !important;
+  border: none !important;
+}
+
+/* Left logo cluster: keep logo, restyle to white "Spotify"-esque wordmark area */
+html.spoutube-enabled .ytmusic-nav-bar.left-content,
+html.spoutube-enabled ytmusic-nav-bar .left-content {
+  min-width: var(--sp-sidebar-w) !important;
+}
+
+/* The YT Music logo — recolor to white */
+html.spoutube-enabled ytmusic-logo yt-icon,
+html.spoutube-enabled ytmusic-logo svg { color: var(--sp-text) !important; fill: var(--sp-text) !important; }
+
+/* Search box → Spotify search pill */
+html.spoutube-enabled ytmusic-search-box {
+  background: #242424 !important;
+  border: 1px solid transparent !important;
+  border-radius: 500px !important;
+  height: 48px !important;
+  width: 474px !important;
+  transition: background 0.2s ease, border-color 0.2s ease !important;
+}
+html.spoutube-enabled ytmusic-search-box:hover {
+  background: #2a2a2a !important;
+}
+html.spoutube-enabled ytmusic-search-box:focus-within {
+  background: #2a2a2a !important;
+  border-color: #ffffff !important;
+}
+html.spoutube-enabled ytmusic-search-box input,
+html.spoutube-enabled ytmusic-search-box .search-box {
+  color: var(--sp-text) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+html.spoutube-enabled ytmusic-search-box tp-yt-paper-icon-button {
+  color: var(--sp-text) !important;
+}
+
+/* Right cluster buttons — circular dark, subdued icons */
+html.spoutube-enabled ytmusic-nav-bar .right-content tp-yt-paper-icon-button,
+html.spoutube-enabled ytmusic-nav-bar .right-content yt-icon-button {
+  color: var(--sp-subdued) !important;
+}
+
+/* Sign-in button → Spotify white pill */
+html.spoutube-enabled ytmusic-nav-bar .right-content ytmusic-nav-bar-signed-out-buttons a,
+html.spoutube-enabled ytmusic-nav-bar tp-yt-paper-button {
+  background: var(--sp-text) !important;
+  color: var(--sp-black) !important;
+  border-radius: 500px !important;
+  font-weight: 700 !important;
+  padding: 8px 16px !important;
+  text-transform: none !important;
+}
+
+/* =====================================================================
+   SIDEBAR  (tp-yt-app-drawer#guide → Spotify "Your Library" panel)
+   ===================================================================== */
+html.spoutube-enabled tp-yt-app-drawer#guide,
+html.spoutube-enabled #guide-wrapper,
+html.spoutube-enabled #guide-content {
+  background: var(--sp-sidebar) !important;
+  width: var(--sp-sidebar-w) !important;
+  border: none !important;
+}
+
+/* Rounded panel look: give the sidebar inner content the Spotify card radius */
+html.spoutube-enabled #guide-content {
+  margin: 8px 8px 0 8px !important;
+  border-radius: var(--sp-radius) !important;
+  padding-top: 8px !important;
+}
+
+/* Guide (nav) entries → Spotify sidebar rows */
+html.spoutube-enabled ytmusic-guide-entry-renderer tp-yt-paper-item,
+html.spoutube-enabled ytmusic-guide-entry-renderer a {
+  color: var(--sp-subdued) !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  border-radius: 4px !important;
+  transition: color 0.15s ease !important;
+}
+html.spoutube-enabled ytmusic-guide-entry-renderer:hover tp-yt-paper-item,
+html.spoutube-enabled ytmusic-guide-entry-renderer[active] tp-yt-paper-item {
+  color: var(--sp-text) !important;
+  background: transparent !important;
+}
+html.spoutube-enabled ytmusic-guide-entry-renderer yt-icon,
+html.spoutube-enabled ytmusic-guide-entry-renderer svg {
+  color: currentColor !important;
+  fill: currentColor !important;
+}
+
+/* Active nav indicator (YTM red pill) → remove; Spotify uses white text only */
+html.spoutube-enabled ytmusic-guide-entry-renderer[active] {
+  background: transparent !important;
+}
+
+/* Sign-in prompt box in sidebar → Spotify subdued card */
+html.spoutube-enabled ytmusic-guide-signin-promo-renderer,
+html.spoutube-enabled .signin-promo {
+  background: transparent !important;
+  color: var(--sp-subdued) !important;
+}
+
+/* =====================================================================
+   MAIN CONTENT  → Spotify rounded #121212 panel w/ gradient header
+   ===================================================================== */
+html.spoutube-enabled #layout > ytmusic-browse-response,
+html.spoutube-enabled ytmusic-browse-response,
+html.spoutube-enabled #content.ytmusic-app-layout,
+html.spoutube-enabled ytmusic-tabbed-search-results-renderer {
+  background: var(--sp-base) !important;
+}
+
+/* The main scroll container: rounded panel floating on black */
+html.spoutube-enabled #content.ytmusic-app-layout,
+html.spoutube-enabled ytmusic-app-layout > #content {
+  margin: 8px 8px 0 0 !important;
+  border-radius: var(--sp-radius) !important;
+  overflow: hidden !important;
+}
+
+/* Kill YT header gradient chips row → Spotify has category chips too, keep but restyle */
+html.spoutube-enabled ytmusic-chip-cloud-chip-renderer,
+html.spoutube-enabled ytmusic-chip-cloud-renderer chip {
+  background: rgba(255,255,255,0.07) !important;
+  border-radius: 500px !important;
+  color: var(--sp-text) !important;
+  font-weight: 600 !important;
+}
+html.spoutube-enabled ytmusic-chip-cloud-chip-renderer[is-selected] {
+  background: var(--sp-text) !important;
+  color: var(--sp-black) !important;
+}
+
+/* Section titles → Spotify bold "Made For You" style */
+html.spoutube-enabled ytmusic-carousel-shelf-renderer .title,
+html.spoutube-enabled .header .title.ytmusic-carousel-shelf-basic-header-renderer,
+html.spoutube-enabled yt-formatted-string.title {
+  color: var(--sp-text) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.04em !important;
+}
+
+/* Cards (two-row items) → Spotify album cards */
+html.spoutube-enabled ytmusic-two-row-item-renderer {
+  background: transparent !important;
+  border-radius: var(--sp-radius) !important;
+  padding: 12px !important;
+  transition: background 0.2s ease !important;
+}
+html.spoutube-enabled ytmusic-two-row-item-renderer:hover {
+  background: var(--sp-elev-hi) !important;
+}
+html.spoutube-enabled ytmusic-two-row-item-renderer .title {
+  color: var(--sp-text) !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+}
+html.spoutube-enabled ytmusic-two-row-item-renderer .subtitle {
+  color: var(--sp-subdued) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+/* Album art rounding */
+html.spoutube-enabled ytmusic-two-row-item-renderer .image,
+html.spoutube-enabled ytmusic-two-row-item-renderer yt-img-shadow img {
+  border-radius: 6px !important;
+}
+
+/* Green circular play button on card hover (Spotify signature) */
+html.spoutube-enabled ytmusic-two-row-item-renderer ytmusic-play-button-renderer {
+  background: var(--sp-green) !important;
+  border-radius: 50% !important;
+  color: var(--sp-black) !important;
+  box-shadow: 0 8px 8px rgba(0,0,0,0.3) !important;
+  opacity: 0 !important;
+  transform: translateY(8px) !important;
+  transition: opacity 0.2s ease, transform 0.2s ease !important;
+}
+html.spoutube-enabled ytmusic-two-row-item-renderer:hover ytmusic-play-button-renderer {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* =====================================================================
+   NOW-PLAYING BAR  (ytmusic-player-bar)
+   Reorder via flex: [song info] .... [transport] .... [volume]
+   ===================================================================== */
+html.spoutube-enabled ytmusic-player-bar {
+  background: var(--sp-black) !important;
+  height: 72px !important;
+  border-top: none !important;
+  padding: 0 8px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Three sections become equal thirds */
+html.spoutube-enabled ytmusic-player-bar .left-controls { order: 2 !important; flex: 1 1 40% !important; justify-content: center !important; }
+html.spoutube-enabled ytmusic-player-bar .middle-controls { order: 1 !important; flex: 1 1 30% !important; justify-content: flex-start !important; }
+html.spoutube-enabled ytmusic-player-bar .right-controls { order: 3 !important; flex: 1 1 30% !important; justify-content: flex-end !important; }
+
+/* --- Song info (middle-controls → left) --- */
+html.spoutube-enabled ytmusic-player-bar .middle-controls .thumbnail-image-wrapper img,
+html.spoutube-enabled ytmusic-player-bar .image {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 6px !important;
+}
+html.spoutube-enabled ytmusic-player-bar .title {
+  color: var(--sp-text) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+html.spoutube-enabled ytmusic-player-bar .byline {
+  color: var(--sp-subdued) !important;
+  font-size: 12px !important;
+}
+
+/* Hide YT's like/dislike/menu row that sits in middle-controls (Spotify shows heart only) */
+html.spoutube-enabled ytmusic-player-bar .middle-controls-buttons {
+  order: 3 !important;
+}
+
+/* --- Transport (left-controls → center) --- */
+html.spoutube-enabled ytmusic-player-bar #left-controls {
+  gap: 8px !important;
+}
+/* Play/pause → white circle w/ black glyph */
+html.spoutube-enabled ytmusic-player-bar #play-pause-button {
+  background: var(--sp-text) !important;
+  border-radius: 50% !important;
+  width: 32px !important;
+  height: 32px !important;
+  padding: 6px !important;
+  color: var(--sp-black) !important;
+  transition: transform 0.1s ease !important;
+}
+html.spoutube-enabled ytmusic-player-bar #play-pause-button:hover {
+  transform: scale(1.06) !important;
+}
+html.spoutube-enabled ytmusic-player-bar #play-pause-button yt-icon,
+html.spoutube-enabled ytmusic-player-bar #play-pause-button svg {
+  color: var(--sp-black) !important;
+  fill: var(--sp-black) !important;
+}
+/* Prev/next → subdued white, hover full white */
+html.spoutube-enabled ytmusic-player-bar .previous-button,
+html.spoutube-enabled ytmusic-player-bar .next-button {
+  color: var(--sp-subdued) !important;
+}
+html.spoutube-enabled ytmusic-player-bar .previous-button:hover,
+html.spoutube-enabled ytmusic-player-bar .next-button:hover {
+  color: var(--sp-text) !important;
+}
+/* Hide YT-only transport bits that Spotify doesn't have (rewind/ff 10/30s) */
+html.spoutube-enabled ytmusic-player-bar .rewind-button,
+html.spoutube-enabled ytmusic-player-bar yt-icon-button[aria-label*="Rewind"],
+html.spoutube-enabled ytmusic-player-bar yt-icon-button[aria-label*="Fast forward"] {
+  display: none !important;
+}
+
+/* --- Progress bar → thin Spotify slider --- */
+html.spoutube-enabled ytmusic-player-bar #progress-bar {
+  --paper-slider-active-color: var(--sp-text) !important;
+  --paper-slider-secondary-color: rgba(255,255,255,0.3) !important;
+  --paper-slider-knob-color: var(--sp-text) !important;
+  --paper-slider-container-color: rgba(255,255,255,0.3) !important;
+  --paper-slider-height: 4px !important;
+}
+html.spoutube-enabled ytmusic-player-bar #progress-bar:hover {
+  --paper-slider-active-color: var(--sp-green) !important;
+}
+/* Time text */
+html.spoutube-enabled ytmusic-player-bar .time-info {
+  color: var(--sp-subdued) !important;
+  font-size: 11px !important;
+}
+
+/* --- Right controls (volume etc.) --- */
+html.spoutube-enabled ytmusic-player-bar #right-controls yt-icon-button {
+  color: var(--sp-subdued) !important;
+}
+html.spoutube-enabled ytmusic-player-bar #right-controls yt-icon-button:hover {
+  color: var(--sp-text) !important;
+}
+html.spoutube-enabled ytmusic-player-bar #volume-slider {
+  --paper-slider-active-color: var(--sp-text) !important;
+  --paper-slider-knob-color: var(--sp-text) !important;
+  --paper-slider-container-color: rgba(255,255,255,0.3) !important;
+}
+
+/* Hide YT-only right controls Spotify lacks (captions, playback speed, autoplay) */
+html.spoutube-enabled ytmusic-player-bar .captions,
+html.spoutube-enabled ytmusic-player-bar .playback-rate-dropdown-trigger,
+html.spoutube-enabled ytmusic-player-bar yt-icon-button[aria-label*="Playback speed"] {
+  display: none !important;
+}
+
+/* =====================================================================
+   QUEUE / NOW-PLAYING PAGE side panel
+   ===================================================================== */
+html.spoutube-enabled #side-panel,
+html.spoutube-enabled ytmusic-player-queue {
+  background: var(--sp-base) !important;
+  border-radius: var(--sp-radius) !important;
+}
