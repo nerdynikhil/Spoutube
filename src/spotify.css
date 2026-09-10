@@ -202,7 +202,17 @@ html.spoutube-enabled ytmusic-chip-cloud-renderer,
 html.spoutube-enabled ytmusic-chip-cloud-renderer #chips-content,
 html.spoutube-enabled ytmusic-chip-cloud-renderer #container {
   height: auto !important; min-height: 0 !important; max-height: none !important;
-  overflow: visible !important; padding: 12px 0 !important;
+  overflow: visible !important;
+}
+/* Comfortable Spotify spacing: room above the row + a gap before the content */
+html.spoutube-enabled ytmusic-chip-cloud-renderer {
+  padding: 20px 0 8px 0 !important;
+  margin-bottom: 8px !important;
+}
+html.spoutube-enabled ytmusic-chip-cloud-renderer #chips-content,
+html.spoutube-enabled ytmusic-chip-cloud-renderer #container {
+  padding: 4px 0 !important;
+  gap: 8px !important;
 }
 html.spoutube-enabled ytmusic-chip-cloud-chip-renderer {
   background: rgba(255,255,255,0.07) !important;
